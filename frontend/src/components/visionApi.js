@@ -7,10 +7,11 @@ class VisionApi extends React.Component {
 
   constructor(){
     super()
+    this.state = {
+      text: "",
+      arr: []
+    }
   }
-
-  //for the jsonbody method I can probably modify it to accept local images instead of having to use
-  // base64 coded stuff
 
 jsonBody(arg){
   let body = JSON.stringify({
@@ -39,25 +40,29 @@ jsonBody(arg){
     }
   ).then(res => res.json())
     .then(data => {
-      console.log(data.responses[0].fullTextAnnotation.text)
+      this.setState({
+        text: data.responses[0].fullTextAnnotation.text
+      })
     })
   }
 
-  counter(){
-    let arr = []
+  componentDidMount(){
     for(let i = 0; i < 100; i++){
       let num = i.toString().split('')
-      if(3-num.length === 2){num.unshift("0","0")}
-        if(3-num.length===1){num.unshift("0")}
-        arr.push(num)
+      if(3-num.length === 2){
+        num.unshift("0","0")
+      } else if(3-num.length===1){
+        num.unshift("0")
+      }
+      let newNum = num[0] + num[1] + num[2]
+      this.state.arr.push(newNum)
       }
     }
 
   render(){
   return (
     <div className="App">
-
-      {this.counter()}
+      <button onClick={()=> this.jsonBody(pic)}>json</button>
     </div>
   );
 }
@@ -65,4 +70,7 @@ jsonBody(arg){
 
 export default VisionApi;
 
-  // {this.jsonBody(pic)}
+//when I console.log this.state.arr.length it says that the arr is zero, there is probably
+//some async problems going on
+
+  // {console.log(this.state.text.slice(this.state.arr[0],this.state.arr[1]))}
