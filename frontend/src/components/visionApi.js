@@ -17,7 +17,7 @@ jsonBody(arg){
     requests: [
       {
         features: [
-          {type: "TEXT_DETECTION"}
+          {type: "DOCUMENT_TEXT_DETECTION"}
         ],
         image: {
           content: arg
@@ -39,17 +39,30 @@ jsonBody(arg){
     }
   ).then(res => res.json())
     .then(data => {
-      console.log(data.responses)
+      console.log(data.responses[0].fullTextAnnotation.text)
     })
   }
+
+  counter(){
+    let arr = []
+    for(let i = 0; i < 100; i++){
+      let num = i.toString().split('')
+      if(3-num.length === 2){num.unshift("0","0")}
+        if(3-num.length===1){num.unshift("0")}
+        arr.push(num)
+      }
+    }
 
   render(){
   return (
     <div className="App">
-      {this.jsonBody(pic)}
+
+      {this.counter()}
     </div>
   );
 }
 }
 
 export default VisionApi;
+
+  // {this.jsonBody(pic)}
