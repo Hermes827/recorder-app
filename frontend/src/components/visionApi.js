@@ -8,9 +8,9 @@ class VisionApi extends React.Component {
   constructor(){
     super()
     this.state = {
-      text: "",
-      arr: []
+      text: ""
     }
+
   }
 
 jsonBody(arg){
@@ -44,33 +44,50 @@ jsonBody(arg){
         text: data.responses[0].fullTextAnnotation.text
       })
     })
+    console.log(this.state.text)
   }
 
-  componentDidMount(){
-    for(let i = 0; i < 100; i++){
-      let num = i.toString().split('')
-      if(3-num.length === 2){
-        num.unshift("0","0")
-      } else if(3-num.length===1){
-        num.unshift("0")
+  // componentDidMount(){
+  //   const arr = []
+  //   for(let i = 0; i < 100; i++){
+  //     let num = i.toString().split('')
+  //     if(3-num.length === 2){
+  //       num.unshift("0","0")
+  //     } else if(3-num.length===1){
+  //       num.unshift("0")
+  //     }
+  //     let newNum = num[0] + num[1] + num[2]
+  //     arr.push(newNum)
+  //     }
+  //     this.random(arr)
+  //   }
+
+    random = () => {
+      const arr = []
+      for(let i = 0; i < 100; i++){
+        let num = i.toString().split('')
+        if(3-num.length === 2){
+          num.unshift("0","0")
+        } else if(3-num.length===1){
+          num.unshift("0")
+        }
+        let newNum = num[0] + num[1] + num[2]
+        arr.push(newNum)
+        }
+        let cool = this.state.text.indexOf(arr[0])
+        let cool1 = this.state.text.indexOf(arr[1])
+       console.log(this.state.text.slice(cool, cool1))
       }
-      let newNum = num[0] + num[1] + num[2]
-      this.state.arr.push(newNum)
-      }
-    }
+    //I need to learn async, promise, await etc for situations like this
 
   render(){
   return (
     <div className="App">
       <button onClick={()=> this.jsonBody(pic)}>json</button>
+      <button onClick={this.random}>click</button>
     </div>
   );
 }
 }
 
 export default VisionApi;
-
-//when I console.log this.state.arr.length it says that the arr is zero, there is probably
-//some async problems going on
-
-  // {console.log(this.state.text.slice(this.state.arr[0],this.state.arr[1]))}
