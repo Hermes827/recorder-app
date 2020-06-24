@@ -74,9 +74,13 @@ jsonBody(arg){
         let newNum = num[0] + num[1] + num[2]
         arr.push(newNum)
         }
-        let cool = this.state.text.indexOf(arr[0])
-        let cool1 = this.state.text.indexOf(arr[1])
+        for(let i = 0; i < 100; i++){
+        let cool = this.state.text.indexOf(arr[i])
+        let cool1 = this.state.text.indexOf(arr[i+1])
+        // console.log(cool)
+       //  let cool1 = this.state.text.indexOf(arr[1])
        console.log(this.state.text.slice(cool, cool1))
+        }
       }
     //I need to learn async, promise, await etc for situations like this
 
